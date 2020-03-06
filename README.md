@@ -46,3 +46,4 @@ Watch this space.
 ## Want commit rights?
 
 * Create an issue.
+* Added by JB 3.
