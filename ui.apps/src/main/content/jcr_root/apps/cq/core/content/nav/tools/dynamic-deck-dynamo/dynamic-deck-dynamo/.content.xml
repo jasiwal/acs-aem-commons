@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:description="Tool page to initiate the deck generation through query, collection &amp; tags"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Dynamic Deck Dynamo"
+    href="/etc/dynamic-deck-dynamo/deck-initiator.html"
+    target="_blank"/>
