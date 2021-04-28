@@ -1,19 +1,206 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. This format was adapated
+All notable changes to this project will be documented in this file. This format was adapted
 after the 3.9.0 release. All changes up until the 3.9.0 release can be found in https://github.com/Adobe-Consulting-Services/acs-aem-commons/releases.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com)
 
 ## Unreleased ([details][unreleased changes details])
 <!-- Keep this up to date! After a release, change the tag name to the latest release -->
-[unreleased changes details]: https://github.com/Adobe-Consulting-Services/acs-aem-commons/compare/acs-aem-commons-4.3.2...HEAD
+[unreleased changes details]: https://github.com/Adobe-Consulting-Services/acs-aem-commons/compare/acs-aem-commons-5.0.4...HEAD
+
+### Fixed
+- #2562 - Fixed cache refresh on versioned clientlibs request when enforceMd5 is false (default).
+
+### Added
+- #2536 - Extended renovator MCP Process to handle audit trail entries of moved assets and pages.
+
+## 5.0.4 - 2021-03-14
+
+### Fixed
+- #2542 - Declaring VanityUrlAdjuster dynamic reference volatile 
+- #2548 - RedirectFilter#urlAdjuster dynamic reference volatile, and requires OSGi configurations to enable Redirect Manager Filter
+
+## 5.0.2 - 2021-03-14
+
+### Fixed
+- #2546 - org.apache.sling.jcr.repoinit.RepositoryInitializer-aem-cs.config prevents repository startup of AEM Cloud Quickstart due to usage of /etc/tags
+
+## 5.0.0 - 2021-03-13
+
+### Changed
+- #2341 - ACS Commons fails to deploy to AEM as a Cloud Service due to inclusion of /var nodes
+
+## 4.12.0 - 2021-03-13
+
+### Added
+- #2518 - Extended the I18N provider / injector mechanism with more options 
+- #2451 - Adding a new dispatcher cache control header filter based on the resource type of the page
+- #2535 - Add option to append new data to arrays using the data importer tool in MCP
+
+### Fixed
+- #2529 - Unable to find an implementation for interface acscommons.io.jsonwebtoken.io.Serializer using java.util.ServiceLoader
+- #2535 - Fix issue where when using dry-run functionality in the data importer would still commit the changes
+- #2542 - Fixed issue where VanityUrlAdjuster as in an internal package (and thus could never be implemented)
+
+## 4.11.2 - 2021-01-05
+
+### Fixed
+- #2496 - Upgrade shaded Guava dependency to 30.1
+- #2498 - Potential NPE in RunnableOnMaster
+- #2492 - NPE in JcrPackageReplicationStatusEventHandler
+- #2494 - Fixed issue with Versioned ClientLib incompatibility on 6.5.7
+
+## 4.11.0 - 2020-12-11
+
+### Fixed
+- #2475 - Content rendered twice on publisher when environment indicator is enabled
+
+### Changed
+- #2479 - Modified JSON output format for the generic list items to use text/value instead of title/value to conform to requirement of the asset metadata schema forms.
+
+### Added
+- #2478 - Choice of performing Dispatcher Flush using Re-Fetch technique. 
+
+## 4.10.0 - 2020-11-19
+
+### Added
+- Add possibility to do page property based dispatcher ttl cache headers
+
+## 4.9.2 - 2020-11-10
+
+### Fixed
+- #2425 - AEM start page is not rendering with AemEnvironmentIndicatorFilter
+- #2466 - Fixing issues reported by CodeClimate. No functional changes.
+
+## 4.9.0 - 2020-11-03
+
+### Added
+- #2442 - @ParentResourceValueMapValue injector and annotation
+- #2434 - New workflow process step "Set Image Orientation"
+
+### Fixed
+- #2425 - Call to setContentLength truncates UTF-8 encoded responses
+- #2441 - Memory Exhaustion with Large Report Download
+- #2450 - Non-Latin letters shown as "?" in the downloaded report
+- #2446 - One page is displayed in multiple lines in Report Builder export CSV file 
+- #2457 - Allow pass through params, block params and allow all params to be defined for serving dispatcher ttl files
+- #2392 - Fixed bug with Audio Encode process that would throw a null pointer exception
+- #2459 - BufferedServletResponse should only defer flushing if the output is really buffered
+
+## 4.8.6 - 2020-10-13
+
+### Fixed
+- #2316 - @ChildResourceFromRequest uses incomplete request wrapper
+- #2383 - [trivial] fix exception message in MarketoFieldDataSource
+- #2384 - Fix resource service manager NPEs when service content nodes are missing
+- #2386 - Make folder titles overwrite optional for asset ingestor
+- #2416 - Fixing workflow package path calculation in WorkflowPackageManager service
+- ##2429 - Add ability to use attribute names that contain a colon for the StaticReferenceRewriteTransformerFactory
+
+
+### Added
+- #1060 - New tree activation MCP utility
+
+### Changed
+
+- #2373 - Cleanup warnings in the unit tests
+- #2377 - Added an option to Disable Vanity URLs for SiteMap Generation
+- #2411 - Robots.txt servlet should better support multi-tenancy
+- #2414 - Sitemap.xml servlet should better support multi-tenancy
+
+## 4.8.4 - 2020-07-23
+
+v4.8.2 failed to release properly. v4.8.4 is a re-release of v4.8.2
+
+## 4.8.2 - 2020-07-23
+
+### Fixed
+- #2372 - EnvironmentFilter breaks HTTP Assets API (#2371)
+
+### Changed
+- #2369 - Fixed a bunch of SCR warnings
+
+## 4.8.0 - 2020-07-16
 
 ### Added
 
+- #2356 - Microsoft Office Asset Selector
+- #2355 - ACS AEM Commons TouchUI Web console
+
 ### Fixed
+
+- #2366 - Fixed UnsupportedOperationException for CQIncludePropertyNamespaceServlet
+
+## 4.7.2 - 2020-07-08
+
+### Added
+- #2339 - Microsoft Office Add-in for AEM Assets
+
+### Fixed
+- #2267 - Redirect Map Edit Wrong Entry
+- #2298 - Removed dependency on com.day.cq.dam.api.collection
+- #2300 - Fixed CopyProperties WF Process copy of empty properties
+- #2311 - ResourceTypeHttpCacheConfigExtension does not work with multiple allowed paths
+- #2313 - Dialog Resource Provider throws StringIndexOutOfBounds exception
+- #2314 - Fixed java.lang.IllegalStateException: Not a JSON Object for CQIncludePropertyNamespaceServlet
+- #2330 - Deactivated VersionedClientlibsTransformerFactory.VersionableClientlibsTransformer for static page exports
+- #2344 - Fixed Injectors ordering according to service.ranking property
+- #2350 - Fixed null check in VanityServiceUrlImpl
+
+### Changed
+- #2303 - EnsureOakIndexServlet (exposed via the OSGi Console) should be invokable via an inline HTML form
+- #2317 - New annotation processor for dialog generation, OSGi manager service no longer needed
+- #2324 - On-Deploy-Scripts are not supported on AEMaaCS
+- #2357 - Added safeguards to SMTPMailServiceHealthCheck to help avoid run-way email pings
+- #2350 - Added hook for VanityUrlAdjuster in VanityServiceUrlImpl
+- #2359 - Deprecated AdminOnlyProcessDefinitionFactory in favor of recommending AdministratorsOnlyProcessDefinitionFactory, updated Deep Prune to allow all administrators group.
+- #2298 - Removed DynamicDeck dependency on deprecated package com.day.cq.dam.api.collection which causes problems w/ AEM CS deployments.
+
+## [4.7.0] - 2020-05-12
+
+### Added
+- #2293 - Added Copy Properties Workflow Process
+- #2243 - Added a servlet for serving robots.txt files
+
+### Changed
+- #2282 - Certain services which are not compatible to AEM as a CloudService, should not be available there
+
+## [4.6.0] - 2020-05-01
+
+### Added
+- #2266 - InDesign "Dynamic Deck Dynamo"
+
+### Fixed
+- #2265 - Review ResourceChangeListener configuration
+- #2187 - Upgraded oakpal.version to 2.0.0. Eliminates transitive compile dependency on oak-core-spi.
+- #2287 - Report Builder pagination buttons not working when report has no Search Parameters configured.
+
+## [4.5.2] - 2020-04-18
+
+### Added
+- #2199 - Add read permission for acs-commons-email-service user in conf folder using rep policy
+
+### Fixed
+- #2241 - Automatic Package Replicator - Missing Service User
+- #2245 - Marketo Endpoint Protocol Documentation Issue
+- #2254 - Fixed unwanted versioned client library cache reload for static CSS/JS resources of a proxied clientlib
+- #2248 - Fixed issue with null values in Generic Lists
+
+## [4.5.0] - 2020-03-25
+
+### Added
+- #2215 - Added Parameterized granite include to support generic dialog snippets
+- #2252 - Make comment available as email template variable
+
+### Fixed
+- #2225 /etc/designs/acs-aem-commons no longer readable by everyone in AEM 6.4+
+- #2220 NPE in Audio component due to XSSApi adapter no longer available
+- #2214 fix java.lang.NoClassDefFoundError: javax/xml/bind/DatatypeConverter in Adobe I/O API's on AEM 6.4
 - #2206 fix sonar warnings; some package versions had to be increased
+- #2213 - Show/Hide Dialog Field TouchUI Widget: Fix hidden required field not disabled to save the dialog
 - Fixed JcrJsonAdapter IllegalStateException when writing multi-valued JCR properties
+- #2228 - Fixed case where OverridePathSlingRequestWrapper would fail to be created if SlingBindings request attribute was null
 
 ### Changed
 - #2208 - Remove the WCMInbox webconsole plugin (#2205)
@@ -26,6 +213,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com)
 - #2174 - Added more granular control of the environment indicator css
 - #2164 - Content model framework now supports page create dialogs
 - #2160 - provide EL support for contextual root
+- #2190 - Added RequireAem OSGi Service that allows for enablement/disablement based on AEM as a Cloud Service or Classic (AMS/OnPrem)
 
 ### Fixed
 - #2195 - Removed direct references to Oak API
@@ -37,7 +225,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com)
 - #2145 - Added null value test to spreadsheet tests
 - #2142 - ETag filter: Correctly evaluate if-none-match header
 - #2137 - Updating maven plugins used for release to resolve release issues
-- #2132 - Fix display of byte sizes 
+- #2132 - Fix display of byte sizes
 - #2082 - ETag filter never sends 304
 
 ### Changed
@@ -425,7 +613,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com)
 
 ### Changed
 - #1343 - CodeClimate now checks for license header
-- #1354 - Added JMX Bean for monitoring and executing on-dploy scripts  
+- #1354 - Added JMX Bean for monitoring and executing on-dploy scripts
 
 ## [3.15.2] - 2018-04-25
 
@@ -592,7 +780,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com)
 ### Fixed
 
 - #1094: Fixed issue with QR Code where its on by default. This requires toggling QR Code on and off to reset the client lib category.
-- #1119: Fixed issue with timezone of on/off times on System Notifications  
+- #1119: Fixed issue with timezone of on/off times on System Notifications
 - #1110: Added package dependency on AEM 6.2 to ensure proper installation order.
 - #1128: Changed to SecureRandom for string generation in LinkedIn integration.
 - #1132: Fixed number of parameters in SharpenImageTransformerImpl
@@ -607,6 +795,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com)
 - #1039: Health Check Status E-mailer
 - #1041: QR Code to Publish in Page Editor
 - #1067: Vanity Path Web server re-writer mapping
+- #2212: Exclude Pages (by Template name or by page properties of boolean values) from Sitemap
 - Managed Controlled Processes framework with 5 sample tools: Folder Relocator, Page Relocator, Asset Report (space usage), Deep Prune, Asset Ingestor (aka AntEater v2)
 - `com.adobe.acs.commons.fam.actions.ActionsBatch` for bundling Fast Action Manager actions so multiple changes can be retried if any of them fail and break the commit.
 - Fast Action Manager now has a halt feature in the API which instantly stops an action manager and any of its scheduled work

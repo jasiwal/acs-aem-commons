@@ -42,6 +42,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.commons.osgi.PropertiesUtil;
+import org.apache.sling.serviceusermapping.ServiceUserMapped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +52,6 @@ import javax.jcr.Session;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -88,10 +88,10 @@ public class WorkflowPackageManagerImpl implements WorkflowPackageManager {
     private static final String[] DEFAULT_WF_PACKAGE_TYPES = {"cq:Page", "cq:PageContent", "dam:Asset"};
 
     private String[] workflowPackageTypes = DEFAULT_WF_PACKAGE_TYPES;
-    
+
     private static final String SERVICE_NAME = "workflowpackagemanager-service";
     private static final Map<String, Object> AUTH_INFO;
-    
+
     static {
         AUTH_INFO = Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, (Object) SERVICE_NAME);
     }
@@ -104,10 +104,13 @@ public class WorkflowPackageManagerImpl implements WorkflowPackageManager {
 
     @Reference
     private ResourceCollectionManager resourceCollectionManager;
-    
+
     @Reference
     ResourceResolverFactory resourceResolverFactory;
-    
+
+    @Reference(target = "("+ServiceUserMapped.SUBSERVICENAME+"="+SERVICE_NAME+")")
+    ServiceUserMapped serviceUserMapped;
+
     private String bucketPath;
 
     /**
@@ -128,13 +131,13 @@ public class WorkflowPackageManagerImpl implements WorkflowPackageManager {
         final Session session = resourceResolver.adaptTo(Session.class);
         final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 
-        
+        String workflowPackagePath = bucketPath;
 
         if (StringUtils.isNotBlank(bucketSegment)) {
-            bucketPath += "/" + bucketSegment;
+            workflowPackagePath += "/" + bucketSegment;
         }
 
-        final Node shardNode = JcrUtils.getOrCreateByPath(bucketPath,
+        final Node shardNode = JcrUtils.getOrCreateByPath(workflowPackagePath,
                 NT_SLING_FOLDER, NT_SLING_FOLDER, session, false);
         final Page page = pageManager.create(shardNode.getPath(), JcrUtil.createValidName(name),
                 WORKFLOW_PACKAGE_TEMPLATE, name, false);
@@ -173,7 +176,7 @@ public class WorkflowPackageManagerImpl implements WorkflowPackageManager {
      * {@inheritDoc}
      */
     public final List<String> getPaths(final ResourceResolver resourceResolver,
-            final String path, final String[] nodeTypes) throws RepositoryException {
+                                       final String path, final String[] nodeTypes) throws RepositoryException {
         final List<String> collectionPaths = new ArrayList<String>();
 
         final Resource resource = resourceResolver.getResource(path);
@@ -297,6 +300,6 @@ public class WorkflowPackageManagerImpl implements WorkflowPackageManager {
             // this service must not get activated
             throw new IllegalStateException(e);
         }
-        
+
     }
 }

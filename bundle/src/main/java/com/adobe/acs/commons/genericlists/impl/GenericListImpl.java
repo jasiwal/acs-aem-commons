@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 
@@ -39,12 +40,17 @@ public final class GenericListImpl implements GenericList {
 
     public static final class ItemImpl implements Item {
 
+        // Title and Text are always the exact same value,
+        // text is really only used by json resources, but need to keep title for Backwards Compatability
+        @SuppressWarnings("squid:S1068")
+        private final String text;
         private final String title;
         private final String value;
         private final ValueMap props;
 
         public ItemImpl(String t, String v, ValueMap props) {
             this.title = t;
+            this.text = t;
             this.value = v;
             this.props = props;
         }
@@ -108,7 +114,7 @@ public final class GenericListImpl implements GenericList {
             ValueMap map = res.getValueMap();
             String title = map.get(NameConstants.PN_TITLE, String.class);
             String value = map.get(PN_VALUE, String.class);
-            if (title != null && value != null) {
+            if (title != null) {
                 ItemImpl item = new ItemImpl(title, value, map);
                 tempItems.add(item);
                 tempValueMapping.put(value, item);
